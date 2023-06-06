@@ -27,8 +27,9 @@ namespace CryptoTools.Export.PortfolioPerformance
         {
             var evaluator = new PortfolioPerformanceTransactionEvaluator(exchangeRateProvider, _ignoredTransactionsTypes);
             var data = await evaluator.EvaluateTransactions(transactions);
-            var depositAccountFileName = "deposit.csv";
-            var securityAccountFileName = "security.csv";
+            var depositAccountFileName = "deposits.csv";
+            var securityAccountFileName = "depottransactions.csv";
+
             var options = new TypeConverterOptions { Formats = new[] { "yyyy-MM-ddTHH:mm" } };
             using (FileStream fs = File.OpenWrite(Path.Combine(directoryPath, depositAccountFileName)))
             {

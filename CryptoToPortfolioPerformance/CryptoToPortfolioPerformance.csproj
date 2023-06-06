@@ -15,4 +15,8 @@
     <ProjectReference Include="..\CryptoToPortfolioPerformance.Parsing\CryptoToPortfolioPerformance.Parsing.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>

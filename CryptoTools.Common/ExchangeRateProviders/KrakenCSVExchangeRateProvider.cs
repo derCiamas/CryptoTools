@@ -136,9 +136,9 @@ namespace CryptoTools.Common.ExchangeRateProviders
             }
 
             //Also the other way around
-            var contraSymbol = new SymbolPair(pair.QuotedSymbol, pair.BaseSymbol);
-            var contraSymbolItems = pairItems.Select(e => e.CloneAndMirrorPrices()).ToList();
-            ItemCache.Instance.AddForPair(contraSymbol, contraSymbolItems);
+            var mirroredSymbol = new SymbolPair(pair.QuotedSymbol, pair.BaseSymbol);
+            var mirroredSymbolItems = pairItems.Select(e => e.CloneAndMirrorPrices()).ToList();
+            ItemCache.Instance.AddForPair(mirroredSymbol, mirroredSymbolItems);
             ItemCache.Instance.AddForPair(pair, pairItems);
         }
 
@@ -212,6 +212,26 @@ namespace CryptoTools.Common.ExchangeRateProviders
                 BaseSymbol = baseSymbol;
                 QuotedSymbol = quotedSymbol;
             }
+
+            public override bool Equals(object obj)
+            {
+                if(obj is SymbolPair casted)
+                {
+                    return casted.BaseSymbol?.Description == BaseSymbol?.Description && casted.QuotedSymbol?.Description == casted.QuotedSymbol?.Description;
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hash = 17;
+                    hash = hash * 23 + (BaseSymbol.GetHashCode());
+                    hash = hash * 23 + (QuotedSymbol.GetHashCode());
+                    return hash;
+                }
+            }
         }
 
         private class ItemCache
@@ -261,6 +281,7 @@ namespace CryptoTools.Common.ExchangeRateProviders
 
             public IEnumerable<KrakenCSVProviderItem> GetForPair(SymbolPair pair, KrakenCSVProviderItem.TimeGranularity granularity = KrakenCSVProviderItem.TimeGranularity.Minute)
             {
+                //TODO => Here is the problem with cache, it isnt read properly
                 List<KrakenCSVProviderItem> items;
                 _symbolsDictionary.TryGetValue(new ItemCacheKey(pair, granularity), out items);
                 return items?.Where(i => i.Granularity == granularity);
@@ -282,14 +303,21 @@ namespace CryptoTools.Common.ExchangeRateProviders
                     var casted = obj as ItemCacheKey;
                     if (casted != null)
                     {
-                        return Granularity == casted.Granularity && KeySymbol.BaseSymbol == casted.KeySymbol.BaseSymbol && KeySymbol.QuotedSymbol == casted.KeySymbol.QuotedSymbol;
+                        return Granularity == casted.Granularity && KeySymbol.BaseSymbol.Equals(casted.KeySymbol.BaseSymbol) && KeySymbol.QuotedSymbol.Equals(casted.KeySymbol.QuotedSymbol);
                     }
                     return false;
                 }
 
                 public override int GetHashCode()
                 {
-                    return KeySymbol.BaseSymbol.Description.GetHashCode() + KeySymbol.QuotedSymbol.Description.GetHashCode() + Granularity.GetHashCode();
+                    unchecked
+                    {
+                        int hash = 13;
+                        hash = hash * 23 + (KeySymbol.BaseSymbol?.Description.GetHashCode() ?? 0);
+                        hash = hash * 23 + (KeySymbol.QuotedSymbol?.Description.GetHashCode() ?? 0);
+                        hash = hash * 23 + Granularity.GetHashCode();
+                        return hash;
+                    }
                 }
             }
         }

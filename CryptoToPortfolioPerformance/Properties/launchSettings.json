@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CryptoToPortfolioPerformance": {
+      "commandName": "Project",
+      "commandLineArgs": "--ledgerCSV C:\\Users\\p.ciamaga\\Downloads\\PP-Crypto-Parser-master\\PP-Crypto-Parser-master\\input\\ledgers.csv --krakenOHLCVT C:\\Users\\p.ciamaga\\Downloads\\Kraken_OHLCVT --outputDir C:\\Users\\p.ciamaga\\Downloads\\PP-Crypto-Parser-master\\PP-Crypto-Parser-master\\input"
+    }
+  }
+}

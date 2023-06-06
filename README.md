@@ -10,6 +10,7 @@ Solution for crypto related tools. The initial version contains the Kraken => Po
 In order to run the parser the following prerequisites are required:
 - Kraken's ledger.csv file (export with default options)
 - Krakens's OHLCVT files ([downloadable here][krakenData] => search for "Single Zip file", download and unzip it)
+- Ledger input symbol to price symbol mapping json file in [following format](CryptoToPortfolioPerformance/HelperFiles/Kraken_SymbolMappings.json), where "Symbol" is the value which appears in OHLCVT files, and "KrakenInputValues" are the values appearing in the Kraken's ledger data
 
 After downloading the both files you can start the tool from the CryptoToPortfolioPerformance director.
 The following parameters need to be filled

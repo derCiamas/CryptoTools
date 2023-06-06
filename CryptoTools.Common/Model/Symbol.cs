@@ -60,6 +60,5 @@
         {
             _description = description;
         }
-
     }
 }

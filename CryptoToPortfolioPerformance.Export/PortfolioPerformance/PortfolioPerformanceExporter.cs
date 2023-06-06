@@ -28,10 +28,15 @@ namespace CryptoTools.Export.PortfolioPerformance
             var evaluator = new PortfolioPerformanceTransactionEvaluator(exchangeRateProvider, _ignoredTransactionsTypes);
             var data = await evaluator.EvaluateTransactions(transactions);
             var depositAccountFileName = "deposits.csv";
-            var securityAccountFileName = "depottransactions.csv";
+            var depotFileName = "depottransactions.csv";
 
             var options = new TypeConverterOptions { Formats = new[] { "yyyy-MM-ddTHH:mm" } };
-            using (FileStream fs = File.OpenWrite(Path.Combine(directoryPath, depositAccountFileName)))
+            var depositsAccountFilePath = Path.Combine(directoryPath, depositAccountFileName);
+            if (File.Exists(depositsAccountFilePath))
+            {
+                File.Delete(depositsAccountFilePath);
+            }
+            using (FileStream fs = File.OpenWrite(depositsAccountFilePath))
             {
                 using (var sw = new StreamWriter(fs))
                 {
@@ -42,7 +47,12 @@ namespace CryptoTools.Export.PortfolioPerformance
                     }
                 }
             }
-            using (FileStream fs = File.OpenWrite(Path.Combine(directoryPath, securityAccountFileName)))
+            var depotFilePath = Path.Combine(directoryPath, depotFileName);
+            if (File.Exists(depotFilePath))
+            {
+                File.Delete(depotFilePath);
+            }
+            using (FileStream fs = File.OpenWrite(depotFilePath))
             {
                 using (var sw = new StreamWriter(fs))
                 {

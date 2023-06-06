@@ -72,7 +72,10 @@ namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
                     transactions.Add(el);
                 }
             }
-            //Assert.IsTrue(ledgerItems.Count(e => !e.AlreadyUsed) == 0);
+            if(ledgerItems.Count(e => !e.AlreadyUsed) != 0)
+            {
+                Console.WriteLine("WARNING! Some transactions have not been included in the export data cause these could not be evaluated. This might happen if, for example, you have exported the ledger shortly after receiving the staking rewards but before the funds were restaked automatically. Try re-exporting the ledger again and running the app.");
+            }
             return transactions;
         }
 

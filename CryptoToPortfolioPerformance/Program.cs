@@ -37,7 +37,6 @@ namespace CryptoTools
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("HI!");
             var ledgerCSV = new Option<string>(
                                         name: "--ledgerCSV",
                                         description: "The Kraken's ledger CSV file.");    

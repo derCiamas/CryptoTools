@@ -1,7 +1,10 @@
 ﻿using CryptoTools.Common.Model;
 using CryptoTools.Common.Model.Transactions;
+using CryptoTools.Parsing.Parsing;
+using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Models;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,12 +12,41 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CryptoTools.Parsing.Parsing
+namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
 {
     public class KrakenCSVParser : CSVParserBase
     {
+        private static Dictionary<string, string> _krakenLedgerToSymbolMapping;
+        private readonly string _symbolMappingsFilePath;
+        public KrakenCSVParser(string symbolMappingsFilePath)
+        {
+            if(string.IsNullOrEmpty(symbolMappingsFilePath) || !System.IO.File.Exists(symbolMappingsFilePath))
+            {
+                throw new ArgumentException($"No {nameof(symbolMappingsFilePath)} provided or the file does not exist");
+            }
+            _symbolMappingsFilePath = symbolMappingsFilePath; 
+        }
+
+        private void InitializeMappings()
+        {
+            if (!string.IsNullOrEmpty(_symbolMappingsFilePath))
+            {
+                var stringValue = File.ReadAllText(_symbolMappingsFilePath);
+                var mappings = Newtonsoft.Json.JsonConvert.DeserializeObject<List<KrakenLedgerDataToSymbolMapping>>(stringValue);
+                _krakenLedgerToSymbolMapping = new Dictionary<string, string>();
+                foreach (var mapping in mappings)
+                {
+                    foreach (var krakenInputValue in mapping.KrakenInputValues)
+                    {
+                        _krakenLedgerToSymbolMapping.Add(krakenInputValue, mapping.Symbol);
+                    }
+                }
+            }
+        }
+
         public override async Task<IEnumerable<TransactionBase>> ParseFile(string filePath)
         {
+            InitializeMappings();
             if (!File.Exists(filePath))
             {
                 throw new ArgumentException($"Path {filePath} does not exist.");
@@ -415,52 +447,13 @@ namespace CryptoTools.Parsing.Parsing
 
             private static CommonSymbol SymbolFromKrakenString(string val)
             {
-                switch (val)
+                var symbol = "";
+                if (_krakenLedgerToSymbolMapping.TryGetValue(val, out symbol))
                 {
-                    case "ATOM.S":
-                    case "ATOM": return Symbol.ATOM;
-                    case "MATIC.S":
-                    case "MATIC04.S":
-                    case "MATIC": return Symbol.MATIC;
-                    case "ALGO.S":
-                    case "ALGO": return Symbol.ALGORAND;
-                    case "ADA":
-                    case "ADA.S": return Symbol.ADA;
-                    case "DOT":
-                    case "DOT.P":
-                    case "DOT28.S":
-                    case "DOT.S": return Symbol.DOT;
-                    case "XETH":
-                    case "ETH":
-                    case "ETH2":
-                    case "ETH2.S": return Symbol.ETH;
-                    case "KSM.P":
-                    case "KSM":
-                    case "KSM07.S":
-                    case "KSM.S": return Symbol.KSM;
-                    case "NANO": return Symbol.NANO;
-                    case "XMLN": return Symbol.MLN;
-                    case "XBT.M":
-                    case "XXBT": return Symbol.BTC;
-                    case "XXDG": return Symbol.DOGE;
-                    case "XXLM": return Symbol.XLM;
-                    case "XXMR": return Symbol.XMR;
-                    case "XXRP": return Symbol.XRP;
-                    case "EUR.M":
-                    case "ZEUR": return Symbol.EUR;
-                    case "KAR": return Symbol.KAR;
-                    case "MOVR": return Symbol.MOVR;
-                    case "SDN": return Symbol.SDN;
-                    case "SOL.S":
-                    case "SOL": return Symbol.SOL;
-                    case "PHA": return Symbol.PHA;
-                    case "GLMR": return Symbol.MOONBEAM;
-                    case "ASTR": return Symbol.ASTR;
-                    case "ACA": return Symbol.ACA;
-                    case "CFG": return Symbol.CFG;
-                    case "USDT": return Symbol.USDT;
-                    default: throw new ArgumentException($"Symbol '{val}' not found");
+                    return new CommonSymbol(symbol);
                 }
+                throw new ArgumentException($"Symbol '{val}' not found");
+                
             }
         }
 

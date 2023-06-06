@@ -42,7 +42,7 @@
 
         public override int GetHashCode()
         {
-            return Description.GetHashCode();
+            return 17 * Description.GetHashCode();
         }
 
         public override string ToString()

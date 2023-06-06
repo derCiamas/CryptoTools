@@ -1,0 +1,102 @@
+[
+  {
+    "Symbol": "ALGO",
+    "KrakenInputValues": [ "ALGO.S", "ALGO" ]
+  },
+  {
+    "Symbol": "ADA",
+    "KrakenInputValues": [ "ADA.S", "ADA" ]
+  },
+  {
+    "Symbol": "ATOM",
+    "KrakenInputValues": [ "ATOM.S", "ATOM" ]
+  },
+  {
+    "Symbol": "MATIC",
+    "KrakenInputValues": [ "MATIC04.S", "MATIC.S", "MATIC" ]
+  },
+  {
+    "Symbol": "DOT",
+    "KrakenInputValues": [ "DOT.P", "DOT28.S", "DOT.S", "DOT" ]
+  },
+  {
+    "Symbol": "ETH",
+    "KrakenInputValues": [ "XETH", "ETH", "ETH2", "ETH2.S" ]
+  },
+  {
+    "Symbol": "KSM",
+    "KrakenInputValues": [ "KSM", "KSM07.S", "KSM.S", "KSM.P" ]
+  },
+  {
+    "Symbol": "NANO",
+    "KrakenInputValues": [ "NANO" ]
+  },
+  {
+    "Symbol": "MLN",
+    "KrakenInputValues": [ "XMLN" ]
+  },
+  {
+    "Symbol": "XBT",
+    "KrakenInputValues": [ "XBT.M", "XXBT", "XBTC", "BTC" ]
+  },
+  {
+    "Symbol": "XDG",
+    "KrakenInputValues": [ "XXDG" ]
+  },
+  {
+    "Symbol": "XLM",
+    "KrakenInputValues": [ "XXLM" ]
+  },
+  {
+    "Symbol": "XMR",
+    "KrakenInputValues": [ "XXMR" ]
+  },
+  {
+    "Symbol": "XRP",
+    "KrakenInputValues": [ "XXRP" ]
+  },
+  {
+    "Symbol": "EUR",
+    "KrakenInputValues": [ "ZEUR", "EUR.M" ]
+  },
+  {
+    "Symbol": "KAR",
+    "KrakenInputValues": [ "KAR" ]
+  },
+  {
+    "Symbol": "MOVR",
+    "KrakenInputValues": [ "MOVR" ]
+  },
+  {
+    "Symbol": "SDN",
+    "KrakenInputValues": [ "SDN" ]
+  },
+  {
+    "Symbol": "SOL",
+    "KrakenInputValues": [ "SOL", "SOL.S" ]
+  },
+  {
+    "Symbol": "PHA",
+    "KrakenInputValues": [ "PHA" ]
+  },
+  {
+    "Symbol": "GLMR",
+    "KrakenInputValues": [ "GLMR" ]
+  },
+  {
+    "Symbol": "ASTR",
+    "KrakenInputValues": [ "ASTR" ]
+  },
+  {
+    "Symbol": "ACA",
+    "KrakenInputValues": [ "ACA" ]
+  },
+  {
+    "Symbol": "CFG",
+    "KrakenInputValues": [ "CFG" ]
+  },
+  {
+    "Symbol": "USDT",
+    "KrakenInputValues": [ "USDT" ]
+  }
+]

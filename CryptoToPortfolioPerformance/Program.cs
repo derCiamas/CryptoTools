@@ -23,11 +23,6 @@ namespace CryptoTools
             var parser = new KrakenCSVParser(symbolMappingsFilePath);
             var data = parser.ParseFile(ledgerFile);
             data.Wait();
-            var grouped = data.Result.Where(t => t.Type == Common.Model.Transactions.TransactionBase.TransactionType.Reward).GroupBy(g => g.BaseSymbol);
-            foreach (var group in grouped)
-            {
-                Console.WriteLine($"Rewards '{group.Key.Description}': {group.Sum(e => e.BaseAmmount)}");
-            }
             var provider = new KrakenCSVExchangeRateProvider(krakenCSVPath);
             var exporter = new PortfolioPerformanceExporter(new[] { typeof(StakeUnstakeTransaction) });
             var task = exporter.ExportToDirectory(outputDir, data.Result, provider);

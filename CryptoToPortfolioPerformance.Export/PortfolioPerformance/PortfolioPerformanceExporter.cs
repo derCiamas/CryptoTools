@@ -118,7 +118,7 @@ namespace CryptoTools.Export.PortfolioPerformance
                 var transactionsList = new List<PortfolioPerformanceCSVLineBase>();
                 if (transaction is BuySellTransaction)
                 {
-                    if (transaction.QuotedSymbol == PPBaseCurrency || transaction.BaseSymbol == PPBaseCurrency)
+                    if (transaction.QuotedSymbol.Equals(PPBaseCurrency) || transaction.BaseSymbol.Equals(PPBaseCurrency))
                     {
                         var ppBaseCurrencyAmmount = transaction.QuotedSymbol == PPBaseCurrency ? transaction.QuotedAmmount : transaction.BaseAmmount;
                         var ppCryptoAmmount = transaction.QuotedSymbol == PPBaseCurrency ? transaction.BaseAmmount : transaction.QuotedAmmount;

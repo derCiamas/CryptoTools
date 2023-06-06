@@ -23,7 +23,7 @@ Example:
 ```
 dotnet run --ledgerCSV C:\PP\ledger.csv --krakenOHLCVT C:\PP\KrakenOHLCVT --outputDir C:\PP\Output
 ```
-
+After exporting, you can import the files to PortfolioPerformance using the templates provided [here][templatesDir]
 
 ### Remarks
 The current version using the Kraken OHLCVT data can be pretty memory consuming but also very exact with prices (the data contains prices with 1min resolution).
@@ -31,3 +31,4 @@ The current version using the Kraken OHLCVT data can be pretty memory consuming 
 [dotnetDownloadLink]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 [krakenData]: https://support.kraken.com/hc/en-us/articles/360047124832-Downloadable-historical-OHLCVT-Open-High-Low-Close-Volume-Trades-data
 [mappingFile]: CryptoToPortfolioPerformance/HelperFiles/Kraken_SymbolMappings.json
+[templatesDir]: CryptoToPortfolioPerformance/HelperFiles

@@ -120,12 +120,12 @@ namespace CryptoTools.Export.PortfolioPerformance
                 {
                     if (transaction.QuotedSymbol.Equals(PPBaseCurrency) || transaction.BaseSymbol.Equals(PPBaseCurrency))
                     {
-                        var ppBaseCurrencyAmmount = transaction.QuotedSymbol == PPBaseCurrency ? transaction.QuotedAmmount : transaction.BaseAmmount;
-                        var ppCryptoAmmount = transaction.QuotedSymbol == PPBaseCurrency ? transaction.BaseAmmount : transaction.QuotedAmmount;
+                        var ppBaseCurrencyAmmount = transaction.QuotedSymbol.Equals(PPBaseCurrency) ? transaction.QuotedAmmount : transaction.BaseAmmount;
+                        var ppCryptoAmmount = transaction.QuotedSymbol.Equals(PPBaseCurrency) ? transaction.BaseAmmount : transaction.QuotedAmmount;
                         var feeInPPBaseCurrency = 0m;
                         if (transaction.FeeSymbol != null)
                         {
-                            feeInPPBaseCurrency = transaction.FeeSymbol == PPBaseCurrency ? transaction.Fee : await _exchangeRateProvider.ExchangeSymbol(PPBaseCurrency, transaction.FeeSymbol, transaction.Fee, transaction.Time);
+                            feeInPPBaseCurrency = transaction.FeeSymbol.Equals(PPBaseCurrency) ? transaction.Fee : await _exchangeRateProvider.ExchangeSymbol(PPBaseCurrency, transaction.FeeSymbol, transaction.Fee, transaction.Time);
                         }
                         //Don't need two transaction. PP handles automatically
 
@@ -137,7 +137,7 @@ namespace CryptoTools.Export.PortfolioPerformance
                             Value = type == PortfolioPerformanceSecurityAccountCSVLine.TransactionTypes.Sell ? (ppBaseCurrencyAmmount.Value + feeInPPBaseCurrency) * -1 : ppBaseCurrencyAmmount.Value * -1 + feeInPPBaseCurrency,
                             TransactionCurrency = PPBaseCurrency.Description,
                             TickerSymbol = MapTransactionToTickerSymbol(transaction),
-                            SecurityName = transaction.QuotedSymbol == PPBaseCurrency ? transaction.BaseSymbol.Description : transaction.QuotedSymbol.Description,
+                            SecurityName = transaction.QuotedSymbol.Equals(PPBaseCurrency) ? transaction.BaseSymbol.Description : transaction.QuotedSymbol.Description,
                             Fees = feeInPPBaseCurrency,
                             Shares = ppCryptoAmmount.Value
                         };

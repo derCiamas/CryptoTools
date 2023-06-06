@@ -22,6 +22,7 @@ Example:
 dotnet run --ledgerCSV C:\PP\ledger.csv --krakenOHLCVT C:\PP\KrakenOHLCVT --outputDir C:\PP\Output
 ```
 
+
 ### Remarks
 The current version using the Kraken OHLCVT data can be pretty memory consuming but also very exact with prices (the data contains prices with 1min resolution).
 

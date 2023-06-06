@@ -106,7 +106,6 @@ namespace CryptoTools.Common.ExchangeRateProviders
                     if (!File.Exists(ohlcvtFilePath))
                     {
                         //Could be that we need to flip the symbol pair
-                        //TODO => This might cause inconsistency when creating mirrored symbol
                         ohlcvtFileName = GetOHLCVTFileName(pair.QuotedSymbol.Description, pair.BaseSymbol.Description, granularity);
                         ohlcvtFilePath = Path.Combine(_dataDirectory, ohlcvtFileName);
                         if (!File.Exists(ohlcvtFilePath))

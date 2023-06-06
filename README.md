@@ -21,7 +21,7 @@ The following parameters need to be filled
 
 Example: 
 ```
-dotnet run --ledgerCSV C:\PP\ledger.csv --krakenOHLCVT C:\PP\KrakenOHLCVT --outputDir C:\PP\Output
+dotnet run --ledgerCSV C:\PP\ledger.csv --krakenOHLCVT C:\PP\KrakenOHLCVT --outputDir C:\PP\Output --symbolMappings C:\PP\Mappings.json
 ```
 After exporting, you can import the files to PortfolioPerformance using the templates provided [here][templatesDir]
 

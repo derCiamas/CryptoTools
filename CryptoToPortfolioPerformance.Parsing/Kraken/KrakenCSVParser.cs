@@ -1,9 +1,8 @@
 ﻿using CryptoTools.Common.Model;
 using CryptoTools.Common.Model.Transactions;
-using CryptoTools.Parsing.Parsing;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators.Models;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Models;
+using CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators;
+using CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators.Models;
+using CryptoToPortfolioPerformance.Parsing.Kraken.Models;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,19 +13,30 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
+namespace CryptoToPortfolioPerformance.Parsing.Kraken
 {
-    public class KrakenCSVParser : CSVParserBase
+    public class KrakenCSVParser : ISourceParser
     {
         private static Dictionary<string, string> _krakenLedgerToSymbolMapping;
         private readonly string _symbolMappingsFilePath;
-        public KrakenCSVParser(string symbolMappingsFilePath)
+        private readonly string _csvToBeParsed;
+        public KrakenCSVParser(string csvToBeParsed, string symbolMappingsFilePath)
         {
-            if(string.IsNullOrEmpty(symbolMappingsFilePath) || !System.IO.File.Exists(symbolMappingsFilePath))
+            if (string.IsNullOrEmpty(csvToBeParsed) || !File.Exists(csvToBeParsed))
+            {
+                throw new ArgumentException($"No {nameof(csvToBeParsed)} provided or the file does not exist");
+            }
+            if (string.IsNullOrEmpty(symbolMappingsFilePath) || !File.Exists(symbolMappingsFilePath))
             {
                 throw new ArgumentException($"No {nameof(symbolMappingsFilePath)} provided or the file does not exist");
             }
-            _symbolMappingsFilePath = symbolMappingsFilePath; 
+            _symbolMappingsFilePath = symbolMappingsFilePath;
+            _csvToBeParsed = csvToBeParsed;
+        }
+
+        public Task<IEnumerable<TransactionBase>> ParseUnderlyingSource()
+        {
+            return ParseFile(_csvToBeParsed);
         }
 
         private void InitializeMappings()
@@ -46,7 +56,7 @@ namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
             }
         }
 
-        public override async Task<IEnumerable<TransactionBase>> ParseFile(string filePath)
+        private async Task<IEnumerable<TransactionBase>> ParseFile(string filePath)
         {
             InitializeMappings();
             if (!File.Exists(filePath))
@@ -74,7 +84,7 @@ namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
                     transactions.Add(el);
                 }
             }
-            if(ledgerItems.Count(e => !e.AlreadyUsed) != 0)
+            if (ledgerItems.Count(e => !e.AlreadyUsed) != 0)
             {
                 Console.WriteLine("WARNING! Some transactions have not been included in the export data cause these could not be evaluated. This might happen if, for example, you have exported the ledger shortly after receiving the staking rewards but before the funds were restaked automatically. Try re-exporting the ledger again and running the app.");
             }
@@ -112,11 +122,11 @@ namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken
                 return null;
             }
 
-          
-           
+
+
         }
 
-      
-      
+
+
     }
 }

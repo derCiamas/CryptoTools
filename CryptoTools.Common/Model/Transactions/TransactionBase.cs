@@ -21,7 +21,9 @@ namespace CryptoTools.Common.Model.Transactions
             Reward,
             DepositWithdrawal,
             StakeUnstake,
-            CryptoExchange
+            CryptoExchange,
+            SecurityRemoval,
+            SecurityDelivery
         }
     }
 

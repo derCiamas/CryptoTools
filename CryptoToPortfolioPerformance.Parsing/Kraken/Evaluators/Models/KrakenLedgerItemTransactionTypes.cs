@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators.Models
+namespace CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators.Models
 {
     internal class KrakenLedgerItemTransactionTypes
     {

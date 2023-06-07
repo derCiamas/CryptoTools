@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Models
+namespace CryptoToPortfolioPerformance.Parsing.Kraken.Models
 {
     internal class KrakenLedgerDataToSymbolMapping
     {

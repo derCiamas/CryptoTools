@@ -1,8 +1,7 @@
 ﻿using CryptoTools.Common.ExchangeRateProviders;
 using CryptoTools.Common.Model.Transactions;
 using CryptoTools.Export.PortfolioPerformance;
-using CryptoTools.Parsing.Parsing;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken;
+using CryptoToPortfolioPerformance.Parsing.Kraken;
 using System;
 using System.CommandLine;
 using System.IO;
@@ -20,8 +19,8 @@ namespace CryptoTools
         /// <param name="outputDir"></param>
         static void DoWork(string ledgerFile, string krakenCSVPath, string symbolMappingsFilePath, string outputDir)
         {
-            var parser = new KrakenCSVParser(symbolMappingsFilePath);
-            var data = parser.ParseFile(ledgerFile);
+            var parser = new KrakenCSVParser(ledgerFile, symbolMappingsFilePath);
+            var data = parser.ParseUnderlyingSource();
             data.Wait();
             var provider = new KrakenCSVExchangeRateProvider(krakenCSVPath);
             var exporter = new PortfolioPerformanceExporter(new[] { typeof(StakeUnstakeTransaction) });

@@ -1,12 +1,12 @@
 ﻿using CryptoTools.Common.Model.Transactions;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators.Models;
+using CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators
+namespace CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators
 {
     internal class StakeRewardEvaluator : TransactionEvaluatorBase
     {

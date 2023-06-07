@@ -1,10 +1,10 @@
 ﻿using CryptoTools.Common.Model;
 using CryptoTools.Common.Model.Transactions;
-using CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators.Models;
+using CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators.Models;
 using System;
 using System.Collections.Generic;
 
-namespace CryptoToPortfolioPerformance.Parsing.Parsing.Kraken.Evaluators
+namespace CryptoToPortfolioPerformance.Parsing.Kraken.Evaluators
 {
     internal abstract class TransactionEvaluatorBase
     {

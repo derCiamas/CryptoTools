@@ -6,7 +6,7 @@ namespace CryptoTools.Common.Model.Transactions
     {
         public override TransactionType Type => TransactionType.SecurityRemoval;
 
-        public SecurityRemovalTransaction(decimal ammount, CommonSymbol symbol, DateTime time)
+        public SecurityRemovalTransaction(decimal ammount, Symbol symbol, DateTime time)
         {
             BaseAmmount = ammount;
             BaseSymbol = symbol;

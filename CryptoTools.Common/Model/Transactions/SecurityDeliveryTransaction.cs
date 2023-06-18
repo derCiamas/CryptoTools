@@ -6,7 +6,7 @@ namespace CryptoTools.Common.Model.Transactions
     {
         public override TransactionType Type => TransactionType.SecurityDelivery;
 
-        public SecurityDeliveryTransaction(decimal ammount, CommonSymbol symbol, DateTime time)
+        public SecurityDeliveryTransaction(decimal ammount, Symbol symbol, DateTime time)
         {
             BaseAmmount = ammount;
             BaseSymbol = symbol;

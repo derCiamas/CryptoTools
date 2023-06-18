@@ -25,7 +25,7 @@ namespace CryptoTools.Common.ExchangeRateProviders
         }
 
         //TODO@Piotr => Need to refactor the whole method, it looks nasty
-        public async Task<decimal?> ExchangeRateForPair(CommonSymbol baseSymbol, CommonSymbol quotedSymbol, DateTime time)
+        public async Task<decimal?> ExchangeRateForPair(Symbol baseSymbol, Symbol quotedSymbol, DateTime time)
         {
             var pair = new SymbolPair(baseSymbol, quotedSymbol);
             var exchangeRateItems = ItemCache.Instance.GetForPair(pair, KrakenCSVProviderItem.TimeGranularity.Minute);
@@ -63,7 +63,7 @@ namespace CryptoTools.Common.ExchangeRateProviders
             return item?.Close;
         }
 
-        public async Task<decimal> ExchangeSymbol(CommonSymbol baseSymbol, CommonSymbol quotedSymbol, decimal value, DateTime time)
+        public async Task<decimal> ExchangeSymbol(Symbol baseSymbol, Symbol quotedSymbol, decimal value, DateTime time)
         {
             var exchangeRate = await ExchangeRateForPair(baseSymbol, quotedSymbol, time);
             if (exchangeRate == null)

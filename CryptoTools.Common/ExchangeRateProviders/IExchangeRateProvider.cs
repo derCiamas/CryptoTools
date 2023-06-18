@@ -6,7 +6,7 @@ namespace CryptoTools.Common.ExchangeRateProviders
 {
     public interface IExchangeRateProvider
     {
-        public Task<decimal?> ExchangeRateForPair(CommonSymbol baseSymbol, CommonSymbol quotedSymbol, DateTime time);
-        public Task<decimal> ExchangeSymbol(CommonSymbol baseSymbol, CommonSymbol quotedSymbol, decimal value, DateTime time);
+        public Task<decimal?> ExchangeRateForPair(Symbol baseSymbol, Symbol quotedSymbol, DateTime time);
+        public Task<decimal> ExchangeSymbol(Symbol baseSymbol, Symbol quotedSymbol, decimal value, DateTime time);
     }
 }
